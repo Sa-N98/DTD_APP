@@ -1,6 +1,6 @@
 export function initPages() {
 const css = document.createElement("link");
     css.rel = "stylesheet";
-    css.href = "./src/pages/page_style.css";
+    css.href = "./src/pages/pages.css";
     document.querySelector("head").appendChild(css);
 }

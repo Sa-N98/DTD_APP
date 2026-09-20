@@ -4,7 +4,7 @@ import { createHomePage } from "./pages/home/home.js";
 import { createAboutPage } from "./pages/about/about.js";
 import { createSettingsPage } from "./pages/settings/settings.js";
 
-import {initPages} from "./pages/page.js";
+import {initPages} from "./pages/pages.js";
 
 
 
@@ -21,9 +21,9 @@ const settingsPage = await createSettingsPage();
 
 
 // Place components
-app.querySelector("navBar").appendChild(navbar);
+app.querySelector("nav-bar").appendChild(navbar);
 
-const pageContainer = app.querySelector("pageContainer");
+const pageContainer = app.querySelector("page-container");
 
 initPages();
 pageContainer.appendChild(homePage);
