@@ -23,7 +23,20 @@ const activateNavbar = (container) => {
     container.querySelectorAll("#nav-links a").forEach(link => {
         link.addEventListener("click", (event) => {
             event.preventDefault();
-            console.log(`Navigating to ${link.getAttribute("href")}`);
+
+            // Remove active from all pages
+            document.querySelectorAll(".page").forEach(page => {
+                page.classList.remove("active");
+            });
+
+            const pageId = link.dataset.page;
+            const pages = document.querySelector(`#${pageId}`);
+            if (pages) {
+                pages.classList.add("active");
+            }
+            else {
+                console.error(`Page with ID ${pageId} not found.`);
+            }
         });
     });
     

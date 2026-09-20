@@ -4,6 +4,10 @@ import { createHomePage } from "./pages/home/home.js";
 import { createAboutPage } from "./pages/about/about.js";
 import { createSettingsPage } from "./pages/settings/settings.js";
 
+import {initPages} from "./pages/page.js";
+
+
+
 
 const app = document.querySelector("#app");
 
@@ -21,6 +25,7 @@ app.querySelector("navBar").appendChild(navbar);
 
 const pageContainer = app.querySelector("pageContainer");
 
+initPages();
 pageContainer.appendChild(homePage);
 pageContainer.appendChild(aboutPage);
 pageContainer.appendChild(settingsPage);
