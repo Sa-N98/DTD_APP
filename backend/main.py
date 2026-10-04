@@ -49,7 +49,7 @@ def login():
         "role": user.role
     })
 
-# 
+
 
 @app.route("/api/teams", methods=["POST"])
 def create_team():
@@ -191,6 +191,14 @@ def get_all_teams():
         }
         team_list.append(team_data)
     return jsonify(team_list), 200
+
+
+@app.route("/api/find_teammates", methods=["GET"])
+def find_teammates():
+    users = User.query.filter_by(role="student", availability=True).all()
+    return jsonify([{
+        "email": user.email
+    } for user in users]), 200
 
 if __name__ == "__main__":
     # with app.app_context():

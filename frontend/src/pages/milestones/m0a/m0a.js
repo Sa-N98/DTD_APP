@@ -17,12 +17,27 @@ export async function createM0APage() {
 
     createTeam(element);
     existingTeam(element);
+    findTeammates(element)
 
     return element;
 }
 
 
 function createTeam(element) {
+    const tmCreateBtn = element.querySelector("#tm_create_btn");
+    const createTmDiv = element.querySelector("#create_tm");
+
+    if (tmCreateBtn && createTmDiv) {
+        tmCreateBtn.addEventListener("click", () => {
+            const isHidden = createTmDiv.style.display === "none";
+            createTmDiv.style.display = isHidden ? "block" : "none";
+
+            if (isHidden) {
+                document.querySelector("#find_tm").style.display = "none";
+            }
+        });
+    }
+
     // Implementation for creating a team
     const createTeamBtn = element.querySelector("#create_team_button");
     const createTeamForm = element.querySelector("#create_team_form");
@@ -147,3 +162,69 @@ function existingTeam(element) {
 
     fetchTeams();
 }
+
+function findTeammates(element) {
+    const tmFindBtn = element.querySelector("#tm_find_btn");
+    const findTmDiv = element.querySelector("#find_tm");
+
+    if (tmFindBtn && findTmDiv) {
+        tmFindBtn.addEventListener("click", () => {
+            const isHidden = findTmDiv.style.display === "none";
+            findTmDiv.style.display = isHidden ? "block" : "none";
+
+            if (isHidden) {
+                document.querySelector("#create_tm").style.display = "none";
+            }
+        });
+    }
+
+    const teammatesList = element.querySelector("#teammates_list");
+    const searchInput = element.querySelector(".search-row input");
+    let allTeammates = [];
+
+    async function fetchTeammates() {
+        try {
+            const response = await fetch("http://127.0.0.1:5001/api/find_teammates");
+            allTeammates = await response.json();
+
+            renderTeammates(allTeammates);
+        } catch (error) {
+            console.error("Error fetching teammates:", error);
+            if (teammatesList) {
+                teammatesList.innerHTML = "<li>Error loading teammates.</li>";
+            }
+        }
+    }
+
+    function renderTeammates(list) {
+        if (!teammatesList) return;
+        teammatesList.innerHTML = "";
+
+        if (!list || list.length === 0) {
+            teammatesList.innerHTML = "<li>No teammates found.</li>";
+            return;
+        }
+
+        list.forEach(student => {
+            const li = document.createElement("li");
+            li.className = "teammate";
+            li.innerHTML = `
+                <span class="teammate-email">${student.email}</span>
+            `;
+            teammatesList.appendChild(li);
+        });
+    }
+
+    if (searchInput) {
+        searchInput.addEventListener("input", (e) => {
+            const term = e.target.value.toLowerCase();
+            const filtered = allTeammates.filter(student =>
+                student.email.toLowerCase().includes(term)
+            );
+            renderTeammates(filtered);
+        });
+    }
+
+    fetchTeammates();
+}
+   
