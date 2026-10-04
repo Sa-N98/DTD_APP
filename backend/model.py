@@ -54,3 +54,4 @@ class TeamMember(db.Model):
         db.Integer,
         nullable=False
     )
+

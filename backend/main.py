@@ -16,4 +16,10 @@ def home():
 
 
 if __name__ == "__main__":
+    with app.app_context():
+        users = User.query.all()
+
+        for user in users:
+            print(user.id, user.email, user.role, user.availability)
+
     app.run(debug=True)
