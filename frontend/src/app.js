@@ -25,22 +25,36 @@ import { getUser } from "./utils/auth.js";
 const app = document.querySelector("#app");
 
 
-// Create components
-const navbar = await createNavbar();
-const timer = await createTimer();
-
-const homePage = await createHomePage();
-const aboutPage = await createAboutPage();
-const settingsPage = await createSettingsPage();
-const loginPage = await createLoginPage();
-
-const m0aPage = await createM0APage();
-const m1aPage = await createM1APage();
-const m1bPage = await createM1BPage();
-const m2aPage = await createM2APage();
-const m2bPage = await createM2BPage();
-const m3aPage = await createM3APage();
-const m3bPage = await createM3BPage();
+// Create components in parallel to avoid network waterfalls
+const [
+    navbar,
+    timer,
+    homePage,
+    aboutPage,
+    settingsPage,
+    loginPage,
+    m0aPage,
+    m1aPage,
+    m1bPage,
+    m2aPage,
+    m2bPage,
+    m3aPage,
+    m3bPage
+] = await Promise.all([
+    createNavbar(),
+    createTimer(),
+    createHomePage(),
+    createAboutPage(),
+    createSettingsPage(),
+    createLoginPage(),
+    createM0APage(),
+    createM1APage(),
+    createM1BPage(),
+    createM2APage(),
+    createM2BPage(),
+    createM3APage(),
+    createM3BPage()
+]);
 
 
 // Place components
@@ -59,7 +73,7 @@ const user = getUser();
 if (user.user_id && user.role && user.email) {
     loginPageContainer.remove();
     initPages();
-    app.querySelector("nav-bar").appendChild(timer);
+    app.querySelector("nav-bar").appendChild(timer.element);
     app.querySelector("nav-bar").appendChild(navbar);
     pageContainer.appendChild(homePage);
     pageContainer.appendChild(aboutPage);
