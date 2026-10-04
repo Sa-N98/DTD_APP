@@ -97,6 +97,7 @@
 .ui-card.elevated {
     border: none;
     box-shadow: var(--ui-shadow-lg);
+    position: static;
 }
 
 .ui-card-header {

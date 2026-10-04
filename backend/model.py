@@ -1,4 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
+import uuid
 
 db = SQLAlchemy()
 
@@ -61,7 +62,10 @@ class Team(db.Model):
     )
 
     team_no = db.Column(
-        db.Integer
+        db.Integer,
+        autoincrement=True,
+        nullable=False,
+        unique=True
     )
 
     problem_stmt = db.Column(

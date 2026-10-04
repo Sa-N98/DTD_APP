@@ -132,5 +132,5 @@ page-container {
   flex: 1;
   height: 100vh;
   overflow-y: auto;
-  background-color: var(--ui-bg-subtle);
+  background-color: var(--ui-bg);
 }
