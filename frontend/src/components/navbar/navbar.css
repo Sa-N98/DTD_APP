@@ -10,9 +10,8 @@
 
 .logo p {
     margin: 0 0 .75rem;
-    padding-bottom: .75rem;
     border-bottom: 2px solid var(--ui-primary);
-    font-size: 3.1rem;
+    font-size: 2rem;
     font-weight: 700;
     letter-spacing: -.01em;
     color: var(--ui-primary);
@@ -21,7 +20,7 @@
 #nav-links {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: .2rem;
 }
 
 .milestone {
