@@ -107,6 +107,11 @@
     color: var(--ui-text, #2e1a0a);
 }
 
+.team_actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
 .view_team_btn {
     padding: 0.4rem 0.8rem;
     font-size: 0.8rem;
@@ -116,6 +121,22 @@
     border-radius: var(--ui-radius-sm, 4px);
     cursor: pointer;
     transition: opacity 0.2s ease;
+}
+
+.exit_team_btn {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.8rem;
+    background: transparent;
+    color: var(--ui-danger, #b82020);
+    border: 1px solid var(--ui-danger, #b82020);
+    border-radius: var(--ui-radius-sm, 4px);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.exit_team_btn:hover {
+    background: var(--ui-danger, #b82020);
+    color: white;
 }
 
 .view_team_btn:hover {

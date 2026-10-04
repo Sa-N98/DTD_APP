@@ -19,6 +19,7 @@ db.init_app(app)
 def home():
     return "DTD_APP API is running!"
 
+
 @app.route("/api/login", methods=["POST"])
 def login():
 
@@ -199,6 +200,72 @@ def find_teammates():
     return jsonify([{
         "email": user.email
     } for user in users]), 200
+
+
+@app.route("/api/exit_team/<user_email>", methods=["POST"])
+def exit_team(user_email):
+
+    user = User.query.filter_by(email=user_email).first()
+
+    if not user:
+        return jsonify({
+            "success": False,
+            "message": "User not found."
+        }), 404
+
+    team_member = TeamMember.query.filter_by(
+        user_id=user.id
+    ).first()
+
+    if not team_member:
+        return jsonify({
+            "success": False,
+            "message": "You are not a member of any team."
+        }), 404
+
+    team = team_member.team
+
+    if not team:
+        return jsonify({
+            "success": False,
+            "message": "Team not found."
+        }), 404
+
+    # Check if exiting member is the leader
+    was_leader = team.lead_id == user.id
+
+    # Remove member
+    db.session.delete(team_member)
+    user.availability = True
+
+    # Get remaining members
+    remaining_members = [
+        member for member in team.team_members
+        if member.user_id != user.id
+    ]
+
+    # If fewer than 2 members remain, delete the team
+    if len(remaining_members) < 2:
+
+        for member in remaining_members:
+            member.user.availability = True
+
+        db.session.delete(team)
+
+    # If leader exited, promote first remaining member
+    elif was_leader:
+
+        new_leader = remaining_members[0]
+
+        team.lead_id = new_leader.user_id
+
+    db.session.commit()
+
+    return jsonify({
+        "success": True,
+        "message": "Successfully exited team."
+    }), 200
+
 
 if __name__ == "__main__":
     # with app.app_context():

@@ -108,6 +108,7 @@ function existingTeam(element) {
         try {
             const response = await fetch("http://127.0.0.1:5001/api/all_teams");
             const teams = await response.json();
+            const user = getUser();
 
             if (!teamsListDiv) return;
             teamsListDiv.innerHTML = "";
@@ -117,15 +118,31 @@ function existingTeam(element) {
                 teamCard.className = "team_card";
 
                 const membersCount = team.members ? team.members.length : 0;
+
+                // Check if the current user is a member of this team
+                const isMember = user && team.members && team.members.some(m => m.email === user.email);
+
                 teamCard.innerHTML = `
                     <div class="team_info">Team ${team.team_no} - Members: ${membersCount}/4</div>
-                    <button class="view_team_btn">View Team</button>
+                    <div class="team_actions">
+                        <button class="view_team_btn">View Team</button>
+                        ${isMember ? '<button class="exit_team_btn">Exit Team</button>' : ''}
+                    </div>
                 `;
 
                 const viewBtn = teamCard.querySelector(".view_team_btn");
                 viewBtn.addEventListener("click", () => {
                     showTeamPopup(team);
                 });
+
+                if (isMember) {
+                    const exitBtn = teamCard.querySelector(".exit_team_btn");
+                    exitBtn.addEventListener("click", async () => {
+                        if (confirm("Are you sure you want to exit this team?")) {
+                            await exitTeam(user.email, fetchTeams);
+                        }
+                    });
+                }
 
                 teamsListDiv.appendChild(teamCard);
             });
@@ -224,3 +241,21 @@ function findTeammates(element) {
     fetchTeammates();
 }
    
+async function exitTeam(userEmail, callback) {
+    try {
+        const response = await fetch(`http://127.0.0.1:5001/api/exit_team/${userEmail}`, {
+            method: "POST",
+        });
+        const result = await response.json();
+
+        if (result.success) {
+            alert("Successfully exited the team.");
+            if (callback) await callback();
+        } else {
+            alert(result.message || "Failed to exit the team.");
+        }
+    } catch (error) {
+        console.error("Error exiting team:", error);
+        alert("An error occurred while trying to exit the team.");
+    }
+}
