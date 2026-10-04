@@ -1,0 +1,6 @@
+#countdown {
+    width: 300px;
+    max-width: 100%;
+    min-height: 16vh;
+    background:  var(--ui-primary)
+}

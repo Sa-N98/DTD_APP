@@ -1,4 +1,5 @@
 import { createNavbar } from "./components/navbar/navbar.js";
+import { createTimer } from "./components/countdown/countdown.js";
 
 import { createHomePage } from "./pages/home/home.js";
 import { createAboutPage } from "./pages/about/about.js";
@@ -26,6 +27,7 @@ const app = document.querySelector("#app");
 
 // Create components
 const navbar = await createNavbar();
+const timer = await createTimer();
 
 const homePage = await createHomePage();
 const aboutPage = await createAboutPage();
@@ -57,6 +59,7 @@ const user = getUser();
 if (user.user_id && user.role && user.email) {
     loginPageContainer.remove();
     initPages();
+    app.querySelector("nav-bar").appendChild(timer);
     app.querySelector("nav-bar").appendChild(navbar);
     pageContainer.appendChild(homePage);
     pageContainer.appendChild(aboutPage);
