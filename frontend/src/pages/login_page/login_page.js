@@ -12,6 +12,39 @@ export async function createLoginPage() {
     container.innerHTML = html;
     
     // Add Functionality
-
+    loginFunctionality(container);
     return container.firstElementChild
+}
+
+function loginFunctionality(container) {
+
+    const form = container.querySelector("#login-form");
+
+    form.addEventListener("submit", async (event) => {
+
+        event.preventDefault();
+
+        const email = form.email.value;
+        const password = form.password.value;
+
+        const response = await fetch(
+            "http://127.0.0.1:5000/api/login",
+            {
+                method: "POST",
+
+                headers: {
+                    "Content-Type": "application/json"
+                },
+
+                body: JSON.stringify({
+                    email: email,
+                    password: password
+                })
+            }
+        );
+
+        const data = await response.json();
+
+        console.log(data);
+    });
 }
