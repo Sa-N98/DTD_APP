@@ -41,6 +41,7 @@
     border: 1px solid var(--ui-border);
     color: transparent;
     font-size: 0;
+    padding: 21px;
 }
 
 .milestone-info {
