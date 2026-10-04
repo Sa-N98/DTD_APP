@@ -7,7 +7,7 @@ from model import *
 app = Flask(__name__)
 CORS(app)
 
-app.config["SQLALCHEMY_DATABASE_URI"] = 'postgresql://neondb_owner:npg_F8olgPakJ4fb@ep-broad-butterfly-b31q904m-pooler.c-4.ap-southeast-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require'
+app.config["SQLALCHEMY_DATABASE_URI"] = 'postgresql+psycopg://neondb_owner:npg_F8olgPakJ4fb@ep-broad-butterfly-b31q904m-pooler.c-4.ap-southeast-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require'
 app.config["SQLALCHEMY_ENGINE_OPTIONS"] = {
     "pool_pre_ping": True
 }
