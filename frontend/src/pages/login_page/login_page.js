@@ -12,39 +12,48 @@ export async function createLoginPage() {
     container.innerHTML = html;
     
     // Add Functionality
-    loginFunctionality(container);
+    // loginFunctionality(container);
     return container.firstElementChild
 }
 
-function loginFunctionality(container) {
+export function loginFunctionality(container) {
 
     const form = container.querySelector("#login-form");
+    const errorMessage = container.querySelector("#login-error");
 
-    form.addEventListener("submit", async (event) => {
+    return new Promise((resolve) => {
 
-        event.preventDefault();
+        form.addEventListener("submit", async (event) => {
 
-        const email = form.email.value;
-        const password = form.password.value;
+            event.preventDefault();
 
-        const response = await fetch(
-            "http://127.0.0.1:5000/api/login",
-            {
-                method: "POST",
+            const email = form.email.value;
+            const password = form.password.value;
 
-                headers: {
-                    "Content-Type": "application/json"
-                },
+            const response = await fetch(
+                "http://127.0.0.1:5000/api/login",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        email: email,
+                        password: password
+                    })
+                }
+            );
 
-                body: JSON.stringify({
-                    email: email,
-                    password: password
-                })
+            const data = await response.json();
+
+            if (data.success) {
+
+                resolve(data);
+
+            } else {
+
+                errorMessage.textContent = data.message;
             }
-        );
-
-        const data = await response.json();
-
-        console.log(data);
+        });
     });
 }

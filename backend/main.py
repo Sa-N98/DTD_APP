@@ -8,6 +8,9 @@ app = Flask(__name__)
 CORS(app)
 
 app.config["SQLALCHEMY_DATABASE_URI"] = 'postgresql://neondb_owner:npg_F8olgPakJ4fb@ep-broad-butterfly-b31q904m-pooler.c-4.ap-southeast-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require'
+app.config["SQLALCHEMY_ENGINE_OPTIONS"] = {
+    "pool_pre_ping": True
+}
 
 db.init_app(app)
 
@@ -30,13 +33,13 @@ def login():
         return jsonify({
             "success": False,
             "message": "Invalid email or password"
-        }), 401
+        })
 
     if user.password != password:
         return jsonify({
             "success": False,
             "message": "Invalid email or password"
-        }), 401
+        })
 
     return jsonify({
         "success": True,

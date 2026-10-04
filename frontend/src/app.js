@@ -4,8 +4,10 @@ import { createHomePage } from "./pages/home/home.js";
 import { createAboutPage } from "./pages/about/about.js";
 import { createSettingsPage } from "./pages/settings/settings.js";
 import { createLoginPage } from "./pages/login_page/login_page.js";
+import { loginFunctionality } from "./pages/login_page/login_page.js";
 
 import {initPages} from "./pages/pages.js";
+
 
 
 
@@ -22,14 +24,25 @@ const settingsPage = await createSettingsPage();
 const loginPage = await createLoginPage();
 
 // Place components
-app.querySelector("nav-bar").appendChild(navbar);
+
 
 const pageContainer = app.querySelector("page-container");
 
-initPages();
-pageContainer.appendChild(homePage);
-pageContainer.appendChild(aboutPage);
-pageContainer.appendChild(settingsPage);
+
 
 var loginPageContainer = document.getElementById("login_page");
 loginPageContainer.appendChild(loginPage);
+
+const login_data = await loginFunctionality(loginPage);
+
+if (login_data.success) {
+    loginPageContainer.remove();
+    
+    initPages();
+    app.querySelector("nav-bar").appendChild(navbar);
+    pageContainer.appendChild(homePage);
+    pageContainer.appendChild(aboutPage);
+    pageContainer.appendChild(settingsPage);
+    console.log("Login successful");
+
+} 
