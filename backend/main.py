@@ -170,6 +170,28 @@ def create_team():
             "message": "Failed to create team."
         }), 500
 
+
+@app.route("/api/all_teams", methods=["GET"])
+def get_all_teams():
+    teams = Team.query.all()
+    team_list = []
+    for team in teams:
+        members = []
+        for tm in team.team_members:
+            members.append({
+                "email": tm.user.email,
+                "role": "Lead" if tm.user.id == team.lead_id else "Member"
+            })
+        team_data = {
+            "id": team.id,
+            "team_no": team.team_no,
+            "lead_id": team.lead_id,
+            "members": members,
+            "team_problem_stmt": team.problem_stmt
+        }
+        team_list.append(team_data)
+    return jsonify(team_list), 200
+
 if __name__ == "__main__":
     # with app.app_context():
     #     team_member = TeamMember.query.first()

@@ -16,7 +16,7 @@ export async function createM0APage() {
     document.querySelector("head").appendChild(css);
 
     createTeam(element);
-    // existingTeam(element);
+    existingTeam(element);
 
     return element;
 }
@@ -88,62 +88,62 @@ function createTeam(element) {
     })
 }
 
-// function existingTeam(element) {
-//     const teamsListDiv = element.querySelector("#existing_teams_list");
+function existingTeam(element) {
+    const teamsListDiv = element.querySelector("#existing_teams");
 
-//     async function fetchTeams() {
-//         try {
-//             const response = await fetch("http://127.0.0.1:5000/api/existing_teams");
-//             const teams = await response.json();
+    async function fetchTeams() {
+        try {
+            const response = await fetch("http://127.0.0.1:5001/api/all_teams");
+            const teams = await response.json();
 
-//             if (!teamsListDiv) return;
-//             teamsListDiv.innerHTML = "";
+            if (!teamsListDiv) return;
+            teamsListDiv.innerHTML = "";
 
-//             teams.forEach(team => {
-//                 const teamCard = document.createElement("div");
-//                 teamCard.className = "team_card";
+            teams.forEach(team => {
+                const teamCard = document.createElement("div");
+                teamCard.className = "team_card";
 
-//                 const membersCount = team.members.length;
-//                 teamCard.innerHTML = `
-//                     <div class="team_info">Team ${team.team_no} - Members: ${membersCount}/4</div>
-//                     <button class="view_team_btn">View Team</button>
-//                 `;
+                const membersCount = team.members ? team.members.length : 0;
+                teamCard.innerHTML = `
+                    <div class="team_info">Team ${team.team_no} - Members: ${membersCount}/4</div>
+                    <button class="view_team_btn">View Team</button>
+                `;
 
-//                 const viewBtn = teamCard.querySelector(".view_team_btn");
-//                 viewBtn.addEventListener("click", () => {
-//                     showTeamPopup(team);
-//                 });
+                const viewBtn = teamCard.querySelector(".view_team_btn");
+                viewBtn.addEventListener("click", () => {
+                    showTeamPopup(team);
+                });
 
-//                 teamsListDiv.appendChild(teamCard);
-//             });
-//         } catch (error) {
-//             console.error("Error fetching teams:", error);
-//         }
-//     }
+                teamsListDiv.appendChild(teamCard);
+            });
+        } catch (error) {
+            console.error("Error fetching teams:", error);
+        }
+    }
 
-//     function showTeamPopup(team) {
-//         const popup = document.createElement("div");
-//         popup.className = "team_popup_overlay";
+    function showTeamPopup(team) {
+        const popup = document.createElement("div");
+        popup.className = "team_popup_overlay";
 
-//         const membersList = team.members
-//             .map(m => `<li>${m.email} (${m.role})</li>`)
-//             .join("");
+        const membersList = (team.members || [])
+            .map(m => `<li>${m.email} (${m.role})</li>`)
+            .join("");
 
-//         popup.innerHTML = `
-//             <div class="team_popup_content">
-//                 <h3>Team ${team.team_no} Details</h3>
-//                 <p><strong>Problem Statement:</strong> ${team.team_problem_stmt || "Not yet defined"}</p>
-//                 <ul>${membersList}</ul>
-//                 <button class="close_popup">Close</button>
-//             </div>
-//         `;
+        popup.innerHTML = `
+            <div class="team_popup_content">
+                <h3>Team ${team.team_no} Details</h3>
+                <p><strong>Problem Statement:</strong> ${team.team_problem_stmt || "Not yet defined"}</p>
+                <ul>${membersList}</ul>
+                <button class="close_popup">Close</button>
+            </div>
+        `;
 
-//         popup.querySelector(".close_popup").addEventListener("click", () => {
-//             document.body.removeChild(popup);
-//         });
+        popup.querySelector(".close_popup").addEventListener("click", () => {
+            document.body.removeChild(popup);
+        });
 
-//         document.body.appendChild(popup);
-//     }
+        document.body.appendChild(popup);
+    }
 
-//     fetchTeams();
-// }
+    fetchTeams();
+}
