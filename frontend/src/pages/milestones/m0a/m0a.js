@@ -29,12 +29,10 @@ function createTeam(element) {
 
     if (tmCreateBtn && createTmDiv) {
         tmCreateBtn.addEventListener("click", () => {
-            const isHidden = createTmDiv.style.display === "none";
-            createTmDiv.style.display = isHidden ? "block" : "none";
-
-            if (isHidden) {
-                document.querySelector("#find_tm").style.display = "none";
-            }
+            createTmDiv.style.display = "block";
+            element.querySelector("#find_tm").style.display = "none";
+            tmCreateBtn.classList.add("active");
+            element.querySelector("#tm_find_btn").classList.remove("active");
         });
     }
 
@@ -169,12 +167,10 @@ function findTeammates(element) {
 
     if (tmFindBtn && findTmDiv) {
         tmFindBtn.addEventListener("click", () => {
-            const isHidden = findTmDiv.style.display === "none";
-            findTmDiv.style.display = isHidden ? "block" : "none";
-
-            if (isHidden) {
-                document.querySelector("#create_tm").style.display = "none";
-            }
+            findTmDiv.style.display = "block";
+            element.querySelector("#create_tm").style.display = "none";
+            tmFindBtn.classList.add("active");
+            element.querySelector("#tm_create_btn").classList.remove("active");
         });
     }
 
