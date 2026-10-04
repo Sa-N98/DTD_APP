@@ -1,5 +1,6 @@
 .page {
     display: none;
+    font-family: var(--ui-font);
 }
 
 .page.active {
