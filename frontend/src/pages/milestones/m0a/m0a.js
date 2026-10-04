@@ -154,19 +154,84 @@ function existingTeam(element) {
     function showTeamPopup(team) {
         const popup = document.createElement("div");
         popup.className = "team_popup_overlay";
+        const user = getUser();
 
         const membersList = (team.members || [])
             .map(m => `<li>${m.email} (${m.role})</li>`)
             .join("");
 
+        const isLead = user && team.members && team.members.some(m => m.email === user.email && m.role === "Lead");
+
         popup.innerHTML = `
             <div class="team_popup_content">
                 <h3>Team ${team.team_no} Details</h3>
-                <p><strong>Problem Statement:</strong> ${team.team_problem_stmt || "Not yet defined"}</p>
-                <ul>${membersList}</ul>
+                <div class="problem-stmt-container">
+                    <p><strong>Problem Statement:</strong> <span id="problem_text">${team.team_problem_stmt || "Not yet defined"}</span></p>
+                    ${isLead ? `
+                        <div class="edit-stmt-controls">
+                            <input type="text" id="new_problem_stmt" placeholder="Enter problem statement..." style="display:none; width: 100%; margin-bottom: 1rem; padding: 0.5rem; border: 1px solid #ccc; border-radius: 4px;">
+                            <button id="edit_stmt_btn" class="view_team_btn">Edit Statement</button>
+                            <button id="save_stmt_btn" class="view_team_btn" style="display:none; background: green;">Save</button>
+                            <button id="cancel_stmt_btn" class="view_team_btn" style="display:none; background: #666;">Cancel</button>
+                        </div>
+                    ` : ''}
+                </div>
+                <ul style="margin-top: 1.5rem;">${membersList}</ul>
                 <button class="close_popup">Close</button>
             </div>
         `;
+
+        if (isLead) {
+            const editBtn = popup.querySelector("#edit_stmt_btn");
+            const saveBtn = popup.querySelector("#save_stmt_btn");
+            const cancelBtn = popup.querySelector("#cancel_stmt_btn");
+            const input = popup.querySelector("#new_problem_stmt");
+            const problemText = popup.querySelector("#problem_text");
+
+            editBtn.addEventListener("click", () => {
+                input.style.display = "block";
+                input.value = team.team_problem_stmt || "";
+                editBtn.style.display = "none";
+                saveBtn.style.display = "inline-block";
+                cancelBtn.style.display = "inline-block";
+                input.focus();
+            });
+
+            cancelBtn.addEventListener("click", () => {
+                input.style.display = "none";
+                editBtn.style.display = "inline-block";
+                saveBtn.style.display = "none";
+                cancelBtn.style.display = "none";
+            });
+
+            saveBtn.addEventListener("click", async () => {
+                const newStmt = input.value;
+                try {
+                    const response = await fetch("http://127.0.0.1:5001/api/update_problem_stmt", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({
+                            team_id: team.id,
+                            problem_stmt: newStmt
+                        })
+                    });
+                    const result = await response.json();
+                    if (result.success) {
+                        problemText.textContent = newStmt;
+                        input.style.display = "none";
+                        editBtn.style.display = "inline-block";
+                        saveBtn.style.display = "none";
+                        cancelBtn.style.display = "none";
+                        alert("Problem statement updated!");
+                    } else {
+                        alert(result.message || "Failed to update statement.");
+                    }
+                } catch (error) {
+                    console.error("Error updating statement:", error);
+                    alert("An error occurred.");
+                }
+            });
+        }
 
         popup.querySelector(".close_popup").addEventListener("click", () => {
             document.body.removeChild(popup);

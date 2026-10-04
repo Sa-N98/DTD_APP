@@ -20,6 +20,10 @@
 .chips .ui-badge {
     padding: .3rem .75rem;
 }
+
+.problem-stmt-container{
+    overflow-wrap: break-word;
+}
 .stats {
     display: flex;
     gap: .6rem;

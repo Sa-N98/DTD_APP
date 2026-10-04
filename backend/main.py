@@ -202,6 +202,40 @@ def find_teammates():
     } for user in users]), 200
 
 
+@app.route("/api/update_problem_stmt", methods=["POST"])
+def update_problem_stmt():
+    data = request.get_json()
+    team_id = data.get("team_id")
+    problem_stmt = data.get("problem_stmt")
+
+    if not team_id or not problem_stmt:
+        return jsonify({
+            "success": False,
+            "message": "Team ID and problem statement are required."
+        }), 400
+
+    team = Team.query.get(team_id)
+    if not team:
+        return jsonify({
+            "success": False,
+            "message": "Team not found."
+        }), 404
+
+    try:
+        team.problem_stmt = problem_stmt
+        db.session.commit()
+        return jsonify({
+            "success": True,
+            "message": "Problem statement updated successfully."
+        }), 200
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({
+            "success": False,
+            "message": "Failed to update problem statement."
+        }), 500
+
+
 @app.route("/api/exit_team/<user_email>", methods=["POST"])
 def exit_team(user_email):
 
