@@ -1,3 +1,6 @@
+// Add common styles for all pages
+
+
 export function initPages() {
 const css = document.createElement("link");
     css.rel = "stylesheet";

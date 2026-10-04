@@ -1,11 +1,11 @@
 import os
 from flask import Flask
-from model import db, User
+from model import *
 
 
 app = Flask(__name__)
 
-app.config["SQLALCHEMY_DATABASE_URI"] = 'neon_connection_string'
+app.config["SQLALCHEMY_DATABASE_URI"] = 'postgresql://neondb_owner:npg_F8olgPakJ4fb@ep-broad-butterfly-b31q904m-pooler.c-4.ap-southeast-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require'
 
 db.init_app(app)
 
@@ -17,9 +17,10 @@ def home():
 
 if __name__ == "__main__":
     with app.app_context():
-        users = User.query.all()
+        team_member = TeamMember.query.first()
 
-        for user in users:
-            print(user.id, user.email, user.role, user.availability)
+        print("Team Member ID:", team_member.id)
+        print("User ID:", team_member.user_id)
+        print("User Email:", team_member.user.email)
 
     app.run(debug=True)

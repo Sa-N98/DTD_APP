@@ -1,0 +1,7 @@
+.login_page {
+    display: none;
+}
+
+.login_page.active {
+    display: block;
+}
