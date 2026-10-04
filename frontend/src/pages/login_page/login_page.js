@@ -1,5 +1,6 @@
+import { API_URL } from "../../Configs/api.js";
 export async function createLoginPage() {
-    import { API_URL } from "../../Configs/api.js";
+    
     // Add Style
     const css = document.createElement("link");
     css.rel = "stylesheet";
