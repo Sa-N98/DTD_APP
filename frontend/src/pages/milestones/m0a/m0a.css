@@ -1,87 +1,87 @@
 .milestone-page {
     padding: 2rem;
-    max-width: 800px;
+    max-width: 860px;
     margin: 0 auto;
 }
-.milestone-page h1 {
-    color: var(--primary-color, #333);
-}
 
-/* --- Header Section Styling --- */
-.milestone-header {
-    text-align: center;
-    margin-bottom: 3rem;
-}
-
-.milestone-eyebrow {
-    display: inline-block;
-    color: var(--ui-primary, #771e18);
-    font-size: 0.8rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    margin-bottom: 0.5rem;
-}
-
-.milestone-header h1 {
-    font-size: 2.5rem !important;
-    font-weight: 800 !important;
-    margin: 0.5rem 0 !important;
-    color: var(--ui-text, #2e1a0a) !important;
-}
-
-.milestone-header h2 {
-    font-size: 1.1rem !important;
-    font-weight: 400 !important;
-    color: var(--ui-text-muted, #8590a2) !important;
-    margin-bottom: 1.5rem !important;
-}
-
-.intro {
-    max-width: 600px;
-    margin: 0 auto 2.5rem;
-    line-height: 1.6;
-    color: var(--ui-text-muted, #8590a2);
-    font-size: 1rem;
-}
-
-/* --- Details Grid Styling --- */
-.details-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
+/* --- Header Styling (Copied from milestone-0-intro.html) --- */
+.top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
     gap: 1.5rem;
-    margin-bottom: 3rem;
+    flex-wrap: wrap;
 }
-
-.detail-card {
+.chips {
+    display: flex;
+    gap: .5rem;
+    flex-wrap: wrap;
+}
+.chips .ui-badge {
+    padding: .3rem .75rem;
+}
+.stats {
+    display: flex;
+    gap: .6rem;
+    flex-wrap: wrap;
+    max-width: 100%;
+}
+.stat {
+    flex: 0 1 auto;
+    min-width: 5.5rem;
+    text-align: center;
+    padding: .6rem .9rem;
     background: var(--ui-surface, #fff);
     border: 1px solid var(--ui-border, #e8ecf1);
     border-radius: var(--ui-radius-lg, 10px);
-    padding: 1.25rem;
-    text-align: center;
     box-shadow: var(--ui-shadow-sm, 0 1px 2px rgba(0,0,0,0.05));
-    transition: transform 0.2s ease;
 }
-
-.detail-card:hover {
-    transform: translateY(-2px);
-    border-color: var(--ui-primary, #771e18);
-}
-
-.detail-label {
+.stat small {
     display: block;
-    font-size: 0.75rem;
+    font-size: .68rem;
     font-weight: 600;
-    color: var(--ui-text-muted, #8590a2);
     text-transform: uppercase;
-    margin-bottom: 0.5rem;
+    letter-spacing: .05em;
+    color: var(--ui-text-muted, #8590a2);
+}
+.stat b {
+    display: block;
+    font-size: 1.5rem;
+    line-height: 1.2;
+    color: var(--ui-primary, #771e18);
+}
+.stat.danger b {
+    color: var(--ui-danger, #b82020);
+}
+.stat span {
+    display: block;
+    font-size: .65rem;
+    color: var(--ui-text-muted, #8590a2);
 }
 
-.detail-value {
-    display: block;
-    font-size: 1.1rem;
-    font-weight: 700;
+.milestone-page h1 {
+    font-size: clamp(2.4rem, 7vw, 4rem);
+    line-height: 1.05;
+    letter-spacing: -.03em;
+    font-weight: 600;
+    margin: 1.25rem 0 1rem;
     color: var(--ui-text, #2e1a0a);
+}
+.milestone-page h1 em {
+    font-style: normal;
+    color: var(--ui-primary, #771e18);
+}
+.lead {
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin: 0 0 .75rem;
+    color: var(--ui-text, #2e1a0a);
+}
+.desc p {
+    margin: .4rem 0;
+    color: var(--ui-text-muted, #8590a2);
+    max-width: 60ch;
+    line-height: 1.6;
 }
 
 /* --- Team Card Styling --- */
@@ -207,6 +207,7 @@
     gap: 0.5rem;
     justify-content: center;
     margin-bottom: 2rem;
+    margin-top: 4rem;
     padding: 0;
     list-style: none;
 }
@@ -237,56 +238,125 @@
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
-/* --- Workspace Section Styling --- */
-.workspace {
-    background: var(--ui-bg-subtle, #fcfcfc);
-    padding: 2rem;
+/* --- UI Panel Styling --- */
+.ui-panel {
+    background: var(--ui-surface, #fff);
+    border: 1px solid var(--ui-border, #e8ecf1);
     border-radius: var(--ui-radius-lg, 10px);
+    overflow: hidden;
+    box-shadow: var(--ui-shadow-sm, 0 1px 2px rgba(0,0,0,0.05));
+}
+
+.ui-panel-header {
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid var(--ui-border, #e8ecf1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--ui-bg-subtle, #fcfcfc);
+}
+
+.panel-heading-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.ui-panel-title {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--ui-text, #2e1a0a);
+}
+
+.panel-heading-text p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--ui-text-muted, #8590a2);
+}
+
+.ui-panel-body {
+    padding: 1.5rem;
+}
+
+.ui-tag {
+    padding: 0.25rem 0.6rem;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    border-radius: 100px;
+    letter-spacing: 0.03em;
+}
+
+.ui-tag.primary {
+    background: var(--ui-primary-light, #fdf2f2);
+    color: var(--ui-primary, #771e18);
+    border: 1px solid var(--ui-primary, #771e18);
+}
+
+.ui-tag.success {
+    background: #eefdf5;
+    color: #166534;
+    border: 1px solid #bbf7d0;
+}
+
+/* --- Form Styling --- */
+.create-form {
+    background: var(--ui-bg-subtle, #f8fafc);
+    padding: 1.5rem;
+    border-radius: var(--ui-radius, 6px);
+    border: 1px dashed var(--ui-border, #e8ecf1);
     margin-top: 2rem;
 }
 
-.tab-content {
-    animation: fadeIn 0.3s ease;
+.ui-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    margin-bottom: 1rem;
 }
 
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(5px); }
-    to { opacity: 1; transform: translateY(0); }
+.ui-field label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--ui-text, #2e1a0a);
 }
 
-.team-panel {
-    max-width: 650px;
-    margin: 0 auto;
+.ui-input {
+    padding: 0.6rem 0.8rem;
+    border: 1px solid var(--ui-border, #e8ecf1);
+    border-radius: var(--ui-radius-sm, 4px);
+    font-size: 0.9rem;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.ui-input:focus {
+    outline: none;
+    border-color: var(--ui-primary, #771e18);
+    box-shadow: 0 0 0 3px rgba(119, 30, 24, 0.1);
+}
+
+.ui-hint {
+    font-size: 0.75rem;
+    color: var(--ui-text-muted, #8590a2);
+    margin-top: 0.25rem;
 }
 
 .member-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1rem;
+    gap: 1.25rem;
     margin-bottom: 1.5rem;
-}
-
-.create-form {
-    background: var(--ui-surface, #fff);
-    padding: 1.5rem;
-    border-radius: var(--ui-radius, 6px);
-    border: 1px solid var(--ui-border, #e8ecf1);
-    margin-top: 31px;
-}
-
-.lead-field {
-    margin-bottom: 1.5rem;
-    padding-bottom: 1.5rem;
-    border-bottom: 1px solid var(--ui-border, #e8ecf1);
 }
 
 .form-actions {
     display: flex;
     justify-content: flex-end;
     gap: 1rem;
-    margin-top: 2rem;
+    margin-top: 1.5rem;
 }
 
+/* --- Find Teammates Styling --- */
 .search-row {
     display: flex;
     gap: 0.75rem;
@@ -295,6 +365,23 @@
 
 .search-row .ui-input-icon {
     flex: 1;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.search-row .ui-input-icon-left {
+    position: absolute;
+    left: 0.75rem;
+    color: var(--ui-text-muted, #8590a2);
+    pointer-events: none;
+    font-size: 1rem;
+    z-index: 1;
+}
+
+.search-row .ui-input {
+    width: 100%;
+    padding-left: 2rem !important;
 }
 
 .teammate-list {
@@ -318,4 +405,5 @@
 .teammate-list li:hover {
     border-color: var(--ui-primary, #771e18);
 }
+
 
