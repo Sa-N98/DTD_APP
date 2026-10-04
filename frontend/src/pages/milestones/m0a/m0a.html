@@ -1,7 +1,52 @@
 <div class="milestone-page">
-    <h1>Milestone 0: Team Formation</h1>
-    <h2>Part A</h2>
-    <div class="content">
-        <p>Welcome to Milestone 0 Part A. Content will go here.</p>
+  <h1>Milestone 0: Team Formation</h1>
+  <h2>Part A</h2>
+
+  <div class="content">
+    <p>Welcome to Milestone 0 Part A. In this first step you will form your project team and get ready for the rest of the DTD-DAD project.</p>
+
+    <h3>Key details</h3>
+    <ul>
+      <li><strong>Deadline:</strong> 11 Oct 2026</li>
+      <li><strong>Team size:</strong> Minimum 2 | Maximum 4 members</li>
+    </ul>
+
+    
+
+    <h5>Form Team</h5>
+    <div id="existing_teams">
+        
+        <div class="team_card">
+            <div id="team_info">members:placeholder/4</div>
+            <button id="view_team">View Team</button>
+        </div>
+        <!-- Add popup for team details -->
+        <div id="existing_teams_list">
+            <!-- List of existing teams will be populated here -->
+            <!-- Each member should have option to exit team -->
+        </div>
+        <div id="team_problemstatement"></div>
     </div>
-</div>
+
+
+    <button id="create_team_button"><icon></icon>Create team</button>
+    <div id="create_team_form" style="display: none;">
+      <input type="email" id="team_lead" name="lead" placeholder="name from local store" value="John Doe" readonly>
+      <input type="email" name="member1" placeholder="email of member 2" required>
+      <input type="email" name="member2" placeholder="email of member 3 (optional)">
+      <input type="email" name="member3" placeholder="email of member 4 (optional)">
+      <button id="submit_team">Submit</button>
+      <div id="team_feedback" style="margin-top: 10px; font-size: 0.9em;"></div>
+    </div>
+
+    <h5>Find Teammates</h5>
+    for all_user who are students and are availabel:
+    <table>
+      <thead>
+        <tr>
+          <th>email</th>
+        </tr>
+      </thead>
+      <tbody id="teammates_list">
+        <!-- List of available teammates will be populated here -->
+      </tbody>
