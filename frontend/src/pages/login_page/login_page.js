@@ -1,5 +1,6 @@
 export async function createLoginPage() {
-    // Add Style 
+    import { API_URL } from "../../Configs/api.js";
+    // Add Style
     const css = document.createElement("link");
     css.rel = "stylesheet";
     css.href = "./src/pages/login_page/login_page.css";
@@ -31,7 +32,7 @@ export function loginFunctionality(container) {
             const password = form.password.value;
 
             const response = await fetch(
-                "http://127.0.0.1:5001/api/login",
+                `${API_URL}/api/login`,
                 {
                     method: "POST",
                     headers: {

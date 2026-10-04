@@ -1,4 +1,5 @@
-import {getUser} from "../../../utils/auth.js";   
+import {getUser} from "../../../utils/auth.js";
+import { API_URL } from "../../../Configs/api.js";
 
 export async function createM0APage() {
     const response = await fetch("./src/pages/milestones/m0a/m0a.html");
@@ -69,7 +70,7 @@ function createTeam(element) {
 
         try {
             const response = await fetch(
-                "http://127.0.0.1:5001/api/teams",
+                `${API_URL}/api/teams`,
                 {
                     method: "POST",
                     headers: {
@@ -106,7 +107,7 @@ function existingTeam(element) {
 
     async function fetchTeams() {
         try {
-            const response = await fetch("http://127.0.0.1:5001/api/all_teams");
+            const response = await fetch(`${API_URL}/api/all_teams`);
             const teams = await response.json();
             const user = getUser();
 
@@ -207,7 +208,7 @@ function existingTeam(element) {
             saveBtn.addEventListener("click", async () => {
                 const newStmt = input.value;
                 try {
-                    const response = await fetch("http://127.0.0.1:5001/api/update_problem_stmt", {
+                    const response = await fetch(`${API_URL}/api/update_problem_stmt`, {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify({
@@ -262,7 +263,7 @@ function findTeammates(element) {
 
     async function fetchTeammates() {
         try {
-            const response = await fetch("http://127.0.0.1:5001/api/find_teammates");
+            const response = await fetch(`${API_URL}/api/find_teammates`);
             allTeammates = await response.json();
 
             renderTeammates(allTeammates);
@@ -308,7 +309,7 @@ function findTeammates(element) {
    
 async function exitTeam(userEmail, callback) {
     try {
-        const response = await fetch(`http://127.0.0.1:5001/api/exit_team/${userEmail}`, {
+        const response = await fetch(`${API_URL}/api/exit_team/${userEmail}`, {
             method: "POST",
         });
         const result = await response.json();
