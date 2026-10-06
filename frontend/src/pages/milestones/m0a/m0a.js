@@ -48,7 +48,8 @@ function createTeam(element) {
     const submitTeamBtn = element.querySelector("#submit_team");
     
     const feedbackDiv = element.querySelector("#team_feedback");
-   
+    const user = getUser();
+    const teamLeadInput = element.querySelector("#team_lead");
 
     
 
@@ -57,8 +58,6 @@ function createTeam(element) {
             const isHidden = createTeamForm.style.display === "none";
             createTeamForm.style.display = isHidden ? "block" : "none";
 
-            const user = getUser();
-            const teamLeadInput = element.querySelector("#team_lead");
             if (user && teamLeadInput) {
             teamLeadInput.value = user.email;
         }
@@ -71,7 +70,7 @@ function createTeam(element) {
         if (feedbackDiv) feedbackDiv.textContent = "Submitting...";
 
         const data = {
-            lead: teamLeadInput.value,
+            lead: user.email,
             member1: element.querySelector('[name="member1"]').value,
             member2: element.querySelector('[name="member2"]').value,
             member3: element.querySelector('[name="member3"]').value
