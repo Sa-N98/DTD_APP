@@ -4,6 +4,7 @@ export async function createM0APage() {
     const response = await fetch("./src/pages/milestones/m0a/m0a.html");
     const html = await response.text();
     const container = document.createElement("div");
+    const user = getUser();
     container.innerHTML = html;
 
     const element = container.firstElementChild;
@@ -14,6 +15,11 @@ export async function createM0APage() {
     css.rel = "stylesheet";
     css.href = "./src/pages/milestones/m0a/m0a.css";
     document.querySelector("head").appendChild(css);
+
+    const teamLeadInput = element.querySelector("#team_lead");
+    if (user && teamLeadInput) {
+        teamLeadInput.value = user.email;
+    }
 
     createTeam(element);
     existingTeam(element);
@@ -44,9 +50,7 @@ function createTeam(element) {
     const feedbackDiv = element.querySelector("#team_feedback");
     const user = getUser();
 
-    if (user && teamLeadInput) {
-        teamLeadInput.value = user.email;
-    }
+    
 
     if (createTeamBtn && createTeamForm) {
         createTeamBtn.addEventListener("click", () => {
