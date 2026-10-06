@@ -396,7 +396,7 @@ h2 {
 
 .tl-wrap {
     container-type: inline-size;
-    width: 120%;
+    width: 115%;
     margin-bottom: 1.5rem
 }
 
@@ -526,8 +526,6 @@ h2 {
   border: none;
   box-shadow: var(--ui-shadow-lg);
   justify-content: inherit;
-  position: relative !important;
-  left: 5rem;
 }
 
 .rules {
