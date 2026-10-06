@@ -19,7 +19,7 @@ export async function createM0APage() {
     // const teamLeadInput = element.querySelector("#team_lead");
     // if (user && teamLeadInput) {
     //     teamLeadInput.value = user.email;
-    }
+    // }
 
     createTeam(element);
     existingTeam(element);
