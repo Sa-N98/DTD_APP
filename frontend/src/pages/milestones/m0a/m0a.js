@@ -16,9 +16,9 @@ export async function createM0APage() {
     css.href = "./src/pages/milestones/m0a/m0a.css";
     document.querySelector("head").appendChild(css);
 
-    const teamLeadInput = element.querySelector("#team_lead");
-    if (user && teamLeadInput) {
-        teamLeadInput.value = user.email;
+    // const teamLeadInput = element.querySelector("#team_lead");
+    // if (user && teamLeadInput) {
+    //     teamLeadInput.value = user.email;
     }
 
     createTeam(element);
@@ -46,9 +46,9 @@ function createTeam(element) {
     const createTeamBtn = element.querySelector("#create_team_button");
     const createTeamForm = element.querySelector("#create_team_form");
     const submitTeamBtn = element.querySelector("#submit_team");
-    const teamLeadInput = element.querySelector("#team_lead");
+    
     const feedbackDiv = element.querySelector("#team_feedback");
-    const user = getUser();
+   
 
     
 
@@ -56,6 +56,12 @@ function createTeam(element) {
         createTeamBtn.addEventListener("click", () => {
             const isHidden = createTeamForm.style.display === "none";
             createTeamForm.style.display = isHidden ? "block" : "none";
+
+            const user = getUser();
+            const teamLeadInput = element.querySelector("#team_lead");
+            if (user && teamLeadInput) {
+            teamLeadInput.value = user.email;
+        }
         });
     }
 
