@@ -111,8 +111,7 @@ class TeamMember(db.Model):
     user_id = db.Column(
         db.Integer,
         db.ForeignKey("users.id"),
-        nullable=False,
-        unique=True
+        nullable=False
     )
 
     team = db.relationship(

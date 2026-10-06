@@ -10,7 +10,6 @@ export async function createM0APage() {
     const element = container.firstElementChild;
     element.id = "page-milestone-0a";
     element.classList.add("page");
-    existingTeam(element);
 
     const css = document.createElement("link");
     css.rel = "stylesheet";
@@ -23,7 +22,7 @@ export async function createM0APage() {
     // }
     
     createTeam(element);
-   
+    existingTeam(element);
     findTeammates(element)
 
     return element;
