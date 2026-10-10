@@ -172,7 +172,7 @@ function existingTeam(element) {
         const isLead = user && team.members && team.members.some(m => m.email === user.email && m.role === "Lead");
 
         popup.innerHTML = `
-            <div class="team_popup_content">
+            <div class="team_popup_content" style="background: var(--ui-surface, #fff); padding: 2rem; border-radius: var(--ui-radius-lg, 10px); max-width: 800px; width: 90%; box-shadow: var(--ui-shadow-lg, 0 10px 15px -3px rgba(0,0,0,0.1)); position: relative; animation: popupAppear 0.3s ease-out; overflow: scroll; max-height: 70vh;">
                 <h3>Team ${team.team_no} Details</h3>
                 <div class="problem-stmt-container">
                     <p><strong>Problem Statement:</strong> <span id="problem_text" style="white-space: pre-wrap;">${team.team_problem_stmt || "Not yet defined"}</span></p>
