@@ -175,10 +175,10 @@ function existingTeam(element) {
             <div class="team_popup_content">
                 <h3>Team ${team.team_no} Details</h3>
                 <div class="problem-stmt-container">
-                    <p><strong>Problem Statement:</strong> <span id="problem_text">${team.team_problem_stmt || "Not yet defined"}</span></p>
+                    <p><strong>Problem Statement:</strong> <span id="problem_text" style="white-space: pre-wrap;">${team.team_problem_stmt || "Not yet defined"}</span></p>
                     ${isLead ? `
                         <div class="edit-stmt-controls">
-                            <input type="text" id="new_problem_stmt" placeholder="Enter problem statement..." style="display:none; width: 100%; margin-bottom: 1rem; padding: 0.5rem; border: 1px solid #ccc; border-radius: 4px;">
+                            <textarea id="new_problem_stmt" placeholder="Enter problem statement (Markdown supported)..." style="display:none; width: 100%; max-width: 100%; height: 100px; margin-bottom: 1rem; padding: 0.5rem; border: 1px solid #ccc; border-radius: 4px; resize: vertical;"></textarea>
                             <button id="edit_stmt_btn" class="view_team_btn">Edit Statement</button>
                             <button id="save_stmt_btn" class="view_team_btn" style="display:none; background: green;">Save</button>
                             <button id="cancel_stmt_btn" class="view_team_btn" style="display:none; background: #666;">Cancel</button>
@@ -226,6 +226,7 @@ function existingTeam(element) {
                     });
                     const result = await response.json();
                     if (result.success) {
+                        problemText.style.whiteSpace = "pre-wrap";
                         problemText.textContent = newStmt;
                         input.style.display = "none";
                         editBtn.style.display = "inline-block";
